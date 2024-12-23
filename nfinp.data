@@ -1,0 +1,71 @@
+Control{
+    cpumax = 23 hour
+    condition = -1 
+    max_iteration = 1000000 
+}
+accuracy{
+    cutoff_wf = 30.00 rydberg
+    cutoff_cd = 270.00 rydberg
+    ksampling{
+        method = monk 
+        mesh{
+            nx = 4 
+            ny = 4 
+            nz = 1 
+        }
+    }
+    xctype = ggapbe 
+    force_convergence{
+        max_force = 0.1e-3 
+    }
+    matrix_diagon{
+        cutoff_wf = 30.00 rydberg
+    }
+    initial_charge_density = Gauss 
+    num_bands = 16 
+}
+structure{
+    unit_cell{
+        #units angstrom
+        a_vector = 2.225 3.853813047 0.00 !4.45
+        b_vector = -2.225 3.853813047 0.00 
+        c_vector = 0.00 0.00 14.9999929702 
+    }
+    atom_list{
+        atoms{
+            #units angstrom
+            #default weight = 1, mobile = 1
+            #tag element rx ry rz mobile weight
+             Sn -0.4167156562884369 0.1041442068185343 0.49999429073842194 1 1
+             Ge -0.08034717783738629 0.44043886159491746 0.500009775240825 1 1
+        }
+        coordinate_system = internal 
+    }
+    element_list{
+        #tag element atomicnumber
+         Sn 50
+         Ge 32
+    }
+}
+structural_evolution{
+    method = gdiis 
+    dt = 50 
+    gdiis{
+        initial_method = cg 
+        c_forc2gdiis = 0.001 hartree/bohr
+    }
+}
+Postprocessing{
+    dos{
+        sw_dos = on 
+        method = tetrahedral 
+        variance = 1.d-6 
+        nwd_dos_window_width = 10 
+        deltaE_dos = 1.d-4 
+    }
+    charge{
+        sw_charge_rspace = On 
+        filetype = cube 
+        title = "Charge density Silicene" 
+    }
+}
